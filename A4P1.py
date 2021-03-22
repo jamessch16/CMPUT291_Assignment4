@@ -10,12 +10,22 @@ def main():
     pass
 
 
-def find_price_part(upc_code):
-    pass
+def find_price_part(db_cursor, upc_code):
+    db_cursor.execute( "SELECT partPrice  \
+                        FROM Parts  \
+                        WHERE partNumber = :upc_code",
+                        {"upc_code":upc_code})
 
 
-def find_price_needs(upc_code):
-    pass
+def find_price_needs(db_cursor, upc_code):
+    db_cursor.execute( "SELECT partPrice  \
+                        FROM Parts  \
+                        WHERE needsPart = :upc_code",
+                        {"upc_code":upc_code})
+
+
+def create_index(db_cursor):
+    db_cursor.execute( "CREATE INDEX idxNeedsPart ON Parts ( needsPart );")
 
 
 if __name__ == "__main__":
