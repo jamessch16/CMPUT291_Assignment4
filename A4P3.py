@@ -3,20 +3,52 @@ import time
 import random
 
 databases = ["A4v100.db", "A4v1k.db", "A4v10k.db", "A4v100k.db", "A4v1M.db"]
+test_size = [50, 50, 50, 10, 5]
 
 def main():
 
+    # Task 9
+    print("Executing Task 9")
     for i in range(5):
+
+        print("Opening", databases[i])
+
         db = sqlite3.connect(databases[i])
         cur = db.cursor()
         dropIndex(cur)
 
-        print("Database", databases[i])
-        print(query4TimeTest(cur, 50))
+        print("Average query time for Query Q4:", query4TimeTest(cur, test_size[i]))
+
+        print("Closing", databases[i])
+        cur.close()
+        db.close()
+
+    # Task 10
+    print("\nCreating Index\n")
+    for i in range(5):
+
+        db = sqlite3.connect(databases[i])
+        cur = db.cursor()
+
         createIndex(cur)
 
-        print(query4TimeTest(cur, 1000))
-        print()
+        cur.close()
+        db.close()
+
+    # Task 11
+    print("Executing Task 11")
+    for i in range(5):
+
+        print("Opening", databases[i])
+
+        db = sqlite3.connect(databases[i])
+        cur = db.cursor()
+
+        print("Average query time for Query Q4:", query4TimeTest(cur, test_size[i]))
+
+        print("Closing", databases[i])
+        cur.close()
+        db.close()
 
 
 def query4TimeTest(cur, sample_size):
@@ -74,7 +106,7 @@ def getMadeInArray(cur, size):
 
 def createIndex(cur):
     # Effect: Creates index on needsPart on each of the databases
-    cur.execute("CREATE INDEX MaxCost ON Parts (madeIn, partPrice)")
+    cur.execute("CREATE INDEX MaxCost ON Parts (madeIn, partPrice);")
 
     
 def dropIndex(cur):
