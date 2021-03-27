@@ -5,14 +5,18 @@ import random
 databases = ["A4v100.db", "A4v1k.db", "A4v10k.db", "A4v100k.db", "A4v1M.db"]
 
 def main():
-    db = sqlite3.connect(databases[4])
-    cur = db.cursor()
 
-    print(query4TimeTest(cur, 1000))
-    dropIndex(cur)
-    createIndex(cur)
+    for i in range(5):
+        db = sqlite3.connect(databases[i])
+        cur = db.cursor()
+        dropIndex(cur)
 
-    print(query4TimeTest(cur, 1000))
+        print("Database", databases[i])
+        print(query4TimeTest(cur, 50))
+        createIndex(cur)
+
+        print(query4TimeTest(cur, 1000))
+        print()
 
 
 def query4TimeTest(cur, sample_size):
@@ -30,7 +34,6 @@ def query4TimeTest(cur, sample_size):
         end_time = time.time()
         total_time += end_time - start_time
     
-    print(total_time, sample_size)
     return total_time/sample_size
     
 
