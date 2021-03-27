@@ -18,6 +18,7 @@ def main():
 def query4TimeTest(cur, sample_size):
     # Effect: This function runs query 4 [sample_size] times on the given database
     # Return: Average time for queries on that database
+    codes = getMadeInArray(cur, sample_size)
     start_time = 0
     end_time = 0
     total_time = 0
