@@ -164,7 +164,7 @@ def dropIndex():
         try:
             conn = sqlite3.connect(db)
             cur = conn.cursor()
-            cur.execute("""DROP INDEX IF EXISTS idxMadeIn;""")
+            cur.execute("""DROP INDEX IF EXISTS idxneedsPart;""")
         finally:
             conn.close()
 main()
